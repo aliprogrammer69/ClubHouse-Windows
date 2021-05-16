@@ -19,6 +19,8 @@ Then Build `ClubHouse.UI.DesktopApp` and run the program.
 
 # Screenshot
 
+<img src="https://github.com/aliprogrammer69/ClubHouse-Windows/blob/main/screenshots/1.jpg"
+     alt="Clubhouse-windows" />
 
 # Features
 ## Authentication
