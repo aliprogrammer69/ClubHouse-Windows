@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.EditDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             MinWidth="400"
+             MaxWidth="600"
+             MinHeight="50"
+             Padding="5"
+             x:Name="dialog">
+    <Grid HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="dataTextBox"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="{Binding ElementName=dialog, Path=Hint}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 MaxLines="{Binding ElementName=dialog, Path=MaxLine, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="True"
+                 TextWrapping="Wrap"/>
+        <Button Grid.Row="1"
+                Grid.Column="0" 
+                HorizontalAlignment="Left"
+                Content="Accept"
+                Margin="0,10,0,0"
+                Style="{StaticResource MaterialDesignFlatAccentBgButton}"
+                Command="{Binding ElementName=dialog, Path=AcceptButtonCommand, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="{Binding ElementName=dataTextBox, Path=Text}"/>
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Content="Cancel"
+                Margin="0,10,0,0"
+                Style="{StaticResource MaterialDesignFlatButton}"
+                Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"/>
+    </Grid>
+</UserControl>

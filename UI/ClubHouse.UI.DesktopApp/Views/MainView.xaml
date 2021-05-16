@@ -1,0 +1,173 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:common="clr-namespace:ClubHouse.Common;assembly=ClubHouse.Common"
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             xmlns:project="clr-namespace:ClubHouse.UI.DesktopApp"
+             xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Popupbox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"
+                              MaxWidth="400"
+                              MinWidth="200" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <materialDesign:Card Grid.Row="0"
+                             Grid.Column="0"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                             Margin="0,0,8,0"
+                             Padding="0,0,0,-3">
+            <Grid Grid.Row="0"
+                  Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <ToggleButton x:Name="MenuToggleButton"
+                              Style="{StaticResource MaterialDesignHamburgerToggleButton}"
+                              IsChecked="{Binding ShowSideBar, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                              HorizontalAlignment="Left"
+                              Grid.Column="0"
+                              Margin="0,-2,0,0" />
+                <Grid Grid.Column="1">
+                    <TextBox x:Name="SearchBox"
+                             Text="{Binding SearchKeyword, UpdateSourceTrigger=PropertyChanged}"
+                             Margin="0,8,25,10"
+                             HorizontalAlignment="Stretch"
+                             materialDesign:HintAssist.Hint="Search"
+                             materialDesign:HintAssist.IsFloating="True"
+                             materialDesign:TextFieldAssist.HasClearButton="True"
+                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Collapsed"
+                             materialDesign:TextFieldAssist.TextFieldCornerRadius="4"
+                             Padding="40,10,5,0">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding SearchCommand}"
+                                        Key="Return" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <materialDesign:PopupBox HorizontalAlignment="Left">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <StackPanel>
+                                <materialDesign:PackIcon Kind="AccountGroup"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="5,10,10,10"
+                                                         Visibility="{c:Binding 'SearchType == project:SearchType.People', FalseToVisibility=Collapsed}"
+                                                         Foreground="{DynamicResource MaterialDesignBody}" />
+                                <materialDesign:PackIcon Kind="GoogleClassroom"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="5,10,10,10"
+                                                         Visibility="{c:Binding 'SearchType == project:SearchType.Room', FalseToVisibility=Collapsed}"
+                                                         Foreground="{DynamicResource MaterialDesignBody}" />
+                                <materialDesign:PackIcon Kind="HomeSearch"
+                                                         Height="30"
+                                                         Width="30"
+                                                         Margin="0,10,10,10"
+                                                         Visibility="{c:Binding 'SearchType == project:SearchType.Club', FalseToVisibility=Collapsed}"
+                                                         Foreground="{DynamicResource MaterialDesignBody}" />
+                            </StackPanel>
+
+                        </materialDesign:PopupBox.ToggleContent>
+                        <StackPanel Width="200">
+                            <Button Command="{Binding SelectRoomSearchCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="GoogleClassroom"
+                                                             Height="30"
+                                                             Width="30"
+                                                             Margin="-10,5,0,0" />
+                                    <TextBlock Text="Rooms"
+                                               Style="{DynamicResource MaterialDesignButtonTextBlock}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Margin="5,10,0,0" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Command="{Binding SelectPeopleSearchCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AccountGroup"
+                                                             Height="30"
+                                                             Width="30"
+                                                             Margin="-10,5,0,0" />
+                                    <TextBlock Text="People"
+                                               Style="{DynamicResource MaterialDesignButtonTextBlock}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Margin="5,10,0,0" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Command="{Binding SelectClubSearchCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="HomeSearch"
+                                                             Height="30"
+                                                             Width="30"
+                                                             Margin="-10,5,0,0" />
+                                    <TextBlock Text="Clubs"
+                                               Style="{DynamicResource MaterialDesignButtonTextBlock}"
+                                               TextAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Margin="5,10,0,0" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
+                </Grid>
+            </Grid>
+        </materialDesign:Card>
+
+        <local:RoomListView Grid.Column="0"
+                            Grid.Row="1"
+                            Visibility="{c:Binding '!IsSearching||SearchType==project:SearchType.Room', FalseToVisibility=Collapsed}" />
+
+        <local:UserSearchListView Grid.Column="0"
+                                  Grid.Row="1"
+                                  Visibility="{c:Binding 'IsSearching and SearchType==project:SearchType.People', FalseToVisibility=Collapsed}" />
+
+        <local:ClubSearchListView Grid.Column="0"
+                                  Grid.Row="1"
+                                  Visibility="{c:Binding 'IsSearching and SearchType==project:SearchType.Club', FalseToVisibility=Collapsed}" />
+
+        <ContentControl Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        prism:RegionManager.RegionName="{x:Static common:Regions.RoomContainerRegionName}" />
+
+        <local:EmptyView Grid.Column="1"
+                         Grid.Row="0"
+                         Grid.RowSpan="2"
+                         Visibility="{c:Binding 'SelectedRoom!=null', FalseToVisibility=Collapsed}" />
+
+        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}"
+                                   Grid.Column="0"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="2"
+                                   Grid.ColumnSpan="2">
+            <materialDesign:DrawerHost.LeftDrawerContent>
+                <local:SideBarView />
+            </materialDesign:DrawerHost.LeftDrawerContent>
+        </materialDesign:DrawerHost>
+    </Grid>
+</UserControl>

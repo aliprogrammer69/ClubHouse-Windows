@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="lib\**" />
+    <EmbeddedResource Remove="lib\**" />
+    <None Remove="lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="agora_rtc_sdk" Version="3.2.1.3" />
+    <PackageReference Include="Prism.Core" Version="8.0.0.1909" />
+    <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
+    <PackageReference Include="PubnubPCL" Version="4.13.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Business\ClubHouse.Business\ClubHouse.Business.csproj" />
+    <ProjectReference Include="..\..\Domain\ClubHouse.Common\ClubHouse.Common.csproj" />
+    <ProjectReference Include="..\..\Domain\ClubHouse.Domain\ClubHouse.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\agora_rtc_sdk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\iris.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-fdkaac.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-ffmpeg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-mpg123.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-soundtouch.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\Developer\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libhwcodec.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\agora_rtc_sdk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\iris.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-fdkaac.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-ffmpeg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-mpg123.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libagora-soundtouch.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="C:\Users\hifea\.nuget\packages\agora_rtc_sdk\3.2.1.3\contentFiles\any\netcoreapp3.1\libhwcodec.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

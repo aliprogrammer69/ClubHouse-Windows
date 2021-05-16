@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <ControlTemplate TargetType="Button"
+                     x:Key="EditLinkButton">
+        <TextBlock>
+            <Hyperlink Style="{StaticResource MaterialDesignCaptionHyperlink}"
+                       Command="{TemplateBinding Command}">
+                   <materialDesign:PackIcon Kind="Pencil" />
+            </Hyperlink>
+        </TextBlock>
+    </ControlTemplate>
+</ResourceDictionary>

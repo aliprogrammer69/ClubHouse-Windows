@@ -1,0 +1,20 @@
+﻿<prism:PrismApplication x:Class="ClubHouse.UI.DesktopApp.App"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                        xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp"
+                        xmlns:prism="http://prismlibrary.com/">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Dark"
+                                             PrimaryColor="Grey"
+                                             SecondaryColor="Blue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClubHouse-Windows;component/Styles/ScrollBar/ScrollBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClubHouse-Windows;component/Styles/EditLinkButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ClubHouse-Windows;component/Styles/NavigationBar.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</prism:PrismApplication>

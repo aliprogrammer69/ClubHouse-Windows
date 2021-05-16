@@ -1,0 +1,76 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <ControlTemplate TargetType="ContentControl"
+                     x:Key="NavigationBar">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal">
+                <Button  ToolTip="Back"
+                         Style="{StaticResource MaterialDesignFlatButton}"
+                         HorizontalAlignment="Left"
+                         VerticalContentAlignment="Top"
+                         Command="{Binding BackCommand}">
+                    <materialDesign:PackIcon Kind="ArrowLeft"
+                                             Width="20"
+                                             Height="20" />
+                </Button>
+                <Button  ToolTip="Forward"
+                         Style="{StaticResource MaterialDesignFlatButton}"
+                         HorizontalAlignment="Left"
+                         VerticalContentAlignment="Top"
+                         Command="{Binding ForwardCommand}">
+                    <materialDesign:PackIcon Kind="ArrowRight"
+                                             Width="20"
+                                             Height="20" />
+                </Button>
+            </StackPanel>
+            <ContentPresenter Grid.Column="1"
+                              ContentSource="Content" />
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate TargetType="ContentControl"
+                     x:Key="CardNavigationBar">
+        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                             HorizontalContentAlignment="Stretch"
+                             HorizontalAlignment="Stretch"
+                             Padding="5,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal">
+                    <Button  ToolTip="Back"
+                             Style="{StaticResource MaterialDesignFlatButton}"
+                             HorizontalAlignment="Left"
+                             VerticalContentAlignment="Top"
+                             Command="{Binding BackCommand}">
+                        <materialDesign:PackIcon Kind="ArrowLeft"
+                                                 Width="20"
+                                                 Height="20" />
+                    </Button>
+                    <Button  ToolTip="Forward"
+                             Style="{StaticResource MaterialDesignFlatButton}"
+                             HorizontalAlignment="Left"
+                             VerticalContentAlignment="Top"
+                             Command="{Binding ForwardCommand}">
+                        <materialDesign:PackIcon Kind="ArrowRight"
+                                                 Width="20"
+                                                 Height="20" />
+                    </Button>
+                </StackPanel>
+                <ContentPresenter Grid.Column="1"
+                                  ContentSource="Content" 
+                                  Margin="10,0,0,0"/>
+            </Grid>
+        </materialDesign:Card>
+    </ControlTemplate>
+</ResourceDictionary>

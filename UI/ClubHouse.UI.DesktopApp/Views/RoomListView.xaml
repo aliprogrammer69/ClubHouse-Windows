@@ -1,0 +1,182 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.RoomListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <Grid>
+        <ListBox ItemsSource="{Binding ViewRoomList}"
+                 SelectedItem="{Binding SelectedRoom}"
+                 HorizontalContentAlignment="Stretch"
+                 VirtualizingStackPanel.VirtualizationMode="Recycling"
+                 PreviewMouseRightButtonDown="ListBox_PreviewMouseRightButtonDown">
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <materialDesign:Card x:Name="ContainerCard"
+                                         materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                         HorizontalContentAlignment="Stretch"
+                                         HorizontalAlignment="Stretch"
+                                         Padding="5"
+                                        Tag="{Binding DataContext, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
+                        <materialDesign:Card.Style>
+                            <Style TargetType="materialDesign:Card">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type ListBoxItem}},Path=IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="Background"
+                                                Value="{StaticResource SecondaryHueMidBrush}" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </materialDesign:Card.Style>
+                        <materialDesign:Card.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="Hide" 
+                                          Command="{Binding PlacementTarget.Tag.HideChannelCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                          CommandParameter="{Binding}"/>
+                            </ContextMenu>
+                        </materialDesign:Card.ContextMenu>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="2"
+                                        Orientation="Horizontal"
+                                        VerticalAlignment="Stretch"
+                                        Visibility="{c:Binding 'Club != null', FalseToVisibility=Collapsed}">
+                                <materialDesign:PackIcon Kind="Home"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding Club.Name}"
+                                           Style="{DynamicResource MaterialDesignCaptionTextBlock}" />
+                            </StackPanel>
+
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Grid.ColumnSpan="2"
+                                       TextWrapping="Wrap"
+                                       Text="{Binding Topic}"
+                                       Style="{DynamicResource MaterialDesignBody1TextBlock}" />
+
+                            <Button Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.RowSpan="2"
+                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="50"
+                                    Height="50"
+                                    Margin="-10,-10, 10, 10"
+                                    Visibility="{c:Binding 'Users.Length > 0', FalseToVisibility=Hidden}"
+                                    BorderThickness="3"
+                                    Command="{Binding DataContext.ShowProfileCommand, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding Users[0].User_id}">
+                                <Grid>
+                                    <materialDesign:PackIcon Kind="AccountCircle"
+                                                             Width="60"
+                                                             Height="60"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center" />
+                                    <Image  Visibility="{c:Binding 'Users[0].Photo_url!=null', FalseToVisibility=Collapsed}"
+                                            Source="{Binding Users[0].Photo_url, IsAsync=True}"
+                                            CacheMode="BitmapCache" />
+                                </Grid>
+                            </Button>
+
+                            <Button Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.RowSpan="2"
+                                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Width="50"
+                                    Height="50"
+                                    Margin="30,30,10,10"
+                                    Visibility="{c:Binding 'Users.Length > 1', FalseToVisibility=Collapsed}"
+                                    BorderThickness="5"
+                                    Command="{Binding DataContext.ShowProfileCommand, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding Users[1].User_id}">
+                                <Grid>
+                                    <materialDesign:PackIcon Kind="AccountCircle"
+                                                             Width="60"
+                                                             Height="60"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center" />
+                                    <Image Visibility="{c:Binding 'Users[1].Photo_url!=null', FalseToVisibility=Collapsed}"
+                                           Source="{Binding Users[1].Photo_url, IsAsync=True}"
+                                           CacheMode="BitmapCache" />
+                                </Grid>
+                            </Button>
+
+                            <ItemsControl Grid.Row="2"
+                                          Grid.Column="1"
+                                          ItemsSource="{Binding Users}"
+                                          Margin="0,10,2,2">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <materialDesign:PackIcon Kind="AccountVoice"
+                                                                     Visibility="{c:Binding Is_speaker, FalseToVisibility=Hidden}"
+                                                                     Margin="3,1" />
+                                            <TextBlock Margin="2,1">
+                                                <Hyperlink Command="{Binding DataContext.ShowProfileCommand, RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type UserControl}}}"
+                                                           CommandParameter="{Binding User_id}"
+                                                           Style="{StaticResource MaterialDesignCaptionHyperlink}">
+                                                    <TextBlock Text="{Binding Name}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+                            <Grid Grid.Row="3"
+                                  Grid.Column="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*"
+                                                      MinWidth="5"
+                                                      MaxWidth="20" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Num_all}" />
+                                <materialDesign:PackIcon Grid.Column="1"
+                                                         Kind="Account" />
+
+                                <TextBlock Grid.Column="3"
+                                           Text="{Binding Num_speakers}" />
+                                <materialDesign:PackIcon Grid.Column="4"
+                                                         Kind="AccountVoice" />
+                            </Grid>
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Style="{StaticResource MaterialDesignFloatingActionButton}" ToolTip="Referesh List"
+                VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20"
+                Command="{Binding RefreshCommand}">
+            <materialDesign:PackIcon Kind="Refresh" Width="30" Height="30"/>
+        </Button>
+    </Grid>
+</UserControl>

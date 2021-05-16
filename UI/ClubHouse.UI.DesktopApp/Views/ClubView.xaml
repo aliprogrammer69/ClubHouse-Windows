@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.ClubView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             xmlns:converters="clr-namespace:ClubHouse.UI.DesktopApp.Converters" 
+             xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:NullImageConverter x:Key="nullImageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button  Grid.Column="0"
+                     ToolTip="Back"
+                     Style="{StaticResource MaterialDesignFlatButton}"
+                     HorizontalAlignment="Left"
+                     VerticalContentAlignment="Top"
+                     Command="{Binding BackCommand}">
+                <materialDesign:PackIcon Kind="ArrowLeft"
+                                         Width="20"
+                                         Height="20" />
+            </Button>
+            <Button  Grid.Column="1"
+                     ToolTip="Forward"
+                     Style="{StaticResource MaterialDesignFlatButton}"
+                     HorizontalAlignment="Left"
+                     VerticalContentAlignment="Top"
+                     Command="{Binding ForwardCommand}">
+                <materialDesign:PackIcon Kind="ArrowRight"
+                                         Width="20"
+                                         Height="20" />
+            </Button>
+            <Button  Grid.Column="2"
+                     ToolTip="Close"
+                     Style="{StaticResource MaterialDesignFlatButton}"
+                     HorizontalAlignment="Right"
+                     Command="{Binding CloseCommand}">
+                <materialDesign:PackIcon Kind="CloseCircle" />
+            </Button>
+        </Grid>
+
+        <materialDesign:PackIcon Grid.Row="1" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Kind="HomeCircle"/>
+
+        <Ellipse Grid.Row="1" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Ellipse.Fill>
+                <ImageBrush ImageSource="{Binding ClubInfo.Club.Photo_url, Converter={StaticResource nullImageConverter}, IsAsync=True}" />
+            </Ellipse.Fill>
+        </Ellipse>
+
+        <TextBlock Grid.Row="2" 
+                   Text="{Binding ClubInfo.Club.Name}" 
+                   HorizontalAlignment="Center"
+                   Margin="10"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"/>
+
+        <Grid Grid.Row="3" HorizontalAlignment="Center" Margin="14">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Left" Margin="15, 0">
+                <TextBlock Text="{Binding ClubInfo.Club.Num_members, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="5,0,0,0" Text="members"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Left" Margin="15, 0">
+                <TextBlock Text="{Binding ClubInfo.Club.Num_followers, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="5,0,0,0" Text="followers"/>
+            </StackPanel>
+        </Grid>
+        
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+            <Button Content="Follow" Visibility="{c:Binding !IsFollower, FalseToVisibility=Collapsed}" Command="{Binding FollowCommand}"/>
+            <Button Content="Unfollow" Visibility="{c:Binding IsFollower, FalseToVisibility=Collapsed}" Command="{Binding UnfollowCommand}"/>
+        </StackPanel>
+
+        <Separator Grid.Row="5" Style="{DynamicResource MaterialDesignSeparator}"/>
+
+        <ScrollViewer Grid.Row="6">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="{Binding ClubInfo.Club.Description}" TextWrapping="Wrap" HorizontalAlignment="Center" TextAlignment="Center"/>
+
+                <materialDesign:Card Grid.Row="1" Margin="20" HorizontalAlignment="Center" Padding="10">
+                <ItemsControl ItemsSource="{Binding ClubInfo.Topics}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"
+                                           VerticalAlignment="Top"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10">
+                                <TextBlock Text="{Binding Title}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                </materialDesign:Card>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

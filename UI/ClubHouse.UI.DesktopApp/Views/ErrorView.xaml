@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.ErrorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <materialDesign:PackIcon Grid.Row="0" 
+                                 Kind="CogOutline"
+                                 HorizontalAlignment="Center"
+                                 MaxWidth="600"
+                                 MaxHeight="600"
+                                 MinWidth="200"
+                                 MinHeight="200"/>
+        <TextBlock  Grid.Row="1" 
+                    Margin="0,10,0,0"
+                    Text="{Binding ErrorMessage}"
+                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"/>
+    </Grid>
+</UserControl>

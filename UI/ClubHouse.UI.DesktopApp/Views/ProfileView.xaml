@@ -1,0 +1,357 @@
+﻿<UserControl x:Class="ClubHouse.UI.DesktopApp.Views.ProfileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:ClubHouse.UI.DesktopApp.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:c="clr-namespace:CalcBinding;assembly=CalcBinding"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             Padding="10,5,10,0"
+             BorderBrush="{StaticResource NormalBorderBrush}"
+             BorderThickness="1">
+    <Grid MinWidth="300"
+          HorizontalAlignment="Stretch"
+          VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0"
+                        Template="{StaticResource NavigationBar}">
+            <Button  ToolTip="Close"
+                     Style="{StaticResource MaterialDesignFlatButton}"
+                     HorizontalAlignment="Right"
+                     Command="{Binding CloseCommand}">
+                <materialDesign:PackIcon Kind="CloseCircle" />
+            </Button>
+        </ContentControl>
+        <Grid Name="ProfilePhotoGrid"
+              Grid.Row="1"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Margin="0,10,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                    BorderThickness="3"
+                    HorizontalAlignment="Left"
+                    MinWidth="100"
+                    MinHeight="100"
+                    Grid.Column="0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <materialDesign:PackIcon Kind="AccountCircle"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             MinWidth="120"
+                                             MinHeight="120"
+                                             Grid.Row="0"
+                                             Grid.RowSpan="2" />
+                    <Image  Stretch="UniformToFill"
+                            CacheMode="BitmapCache"
+                            Source="{Binding UserInfo.ThumbnailPhotoUrl, UpdateSourceTrigger=PropertyChanged, IsAsync=True}"
+                            Grid.Row="0"
+                            Grid.RowSpan="2" />
+                    <Button x:Name="UpdatePhotoButton"
+                            Grid.Row="1"
+                            Opacity="0.9"
+                            HorizontalContentAlignment="Center"
+                            Height="0"
+                            Command="{Binding UpdateProfilePhotoCommand, UpdateSourceTrigger=PropertyChanged}"
+                            Visibility="{c:Binding IsOwnedProfile,UpdateSourceTrigger=PropertyChanged}">
+                        <materialDesign:PackIcon Kind="Camera"
+                                                 Width="25"
+                                                 Height="25" />
+                    </Button>
+                </Grid>
+
+                <Button.CommandParameter>
+                    <Image  Stretch="UniformToFill"
+                            CacheMode="BitmapCache"
+                            Source="{Binding UserInfo.Photo_url, IsAsync=True}" />
+                </Button.CommandParameter>
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="UpdatePhotoButton"
+                                                     Storyboard.TargetProperty="Height"
+                                                     To="30"
+                                                     BeginTime="0:0:0"
+                                                     Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="UpdatePhotoButton"
+                                                     Storyboard.TargetProperty="Height"
+                                                     To="0"
+                                                     BeginTime="0:0:0"
+                                                     Duration="0:0:0.1" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    MinWidth="100"
+                    MinHeight="50"
+                    Command="{Binding FollowCommand}"
+                    Visibility="{c:Binding '!IsOwnedProfile and !Following',UpdateSourceTrigger=PropertyChanged}">
+                Follow
+            </Button>
+            <Button Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    MinWidth="100"
+                    MinHeight="50"
+                    Command="{Binding UnFollowCommand}"
+                    Visibility="{c:Binding Following, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                UnFollow
+            </Button>
+        </Grid>
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal">
+            <TextBlock Grid.Row="2"
+                       Text="{Binding UserInfo.Name, UpdateSourceTrigger=PropertyChanged}"
+                       Margin="0,10,0,0" />
+            <TextBlock TextAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="5,5,0,0"
+                       Visibility="{c:Binding IsOwnedProfile,UpdateSourceTrigger=PropertyChanged}">
+                <Button Command="{Binding ShowEditDialogCommand}"
+                        Template="{StaticResource EditLinkButton}">
+                    <Button.CommandParameter>
+                        <local:EditDialogView AcceptButtonCommand="{Binding UpdateNameCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Hint="Name" />
+                    </Button.CommandParameter>
+                </Button>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+                    Margin="0,5,0,0"
+                    Orientation="Horizontal">
+            <TextBlock Text="{Binding UserInfo.Username, StringFormat=@{0}}" />
+            <TextBlock TextAlignment="Center"
+                       HorizontalAlignment="Right"
+                       Margin="5,0,0,0"
+                       Visibility="{c:Binding IsOwnedProfile,UpdateSourceTrigger=PropertyChanged}">
+                <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                        Template="{StaticResource EditLinkButton}">
+                    <Button.CommandParameter>
+                        <local:EditDialogView AcceptButtonCommand="{Binding UpdateUserNameCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Hint="Username" />
+                    </Button.CommandParameter>
+                </Button>
+            </TextBlock>
+        </StackPanel>
+
+        <Grid x:Name="FollowerFollowing"
+              Grid.Row="4"
+              Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="0"
+                        HorizontalAlignment="Left">
+                <TextBlock Text="{Binding UserInfo.Num_followers, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="5,0,0,0">
+                    <Hyperlink Command="{Binding ShowFollowersCommand}"
+                               Style="{StaticResource MaterialDesignCaptionHyperlink}">
+                        Followers
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="1">
+                <TextBlock Text="{Binding UserInfo.Num_following, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="5,0,0,0">
+                    <Hyperlink Command="{Binding ShowFollowingsCommand}"
+                               Style="{StaticResource MaterialDesignCaptionHyperlink}">Following</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Column="2">
+                <TextBlock Text="{Binding UserInfo.Mutual_follows_count, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Margin="5,0,0,0">
+                    <Hyperlink Command="{Binding ShowMutualFollowingsCommand}"
+                               Style="{StaticResource MaterialDesignCaptionHyperlink}">
+                        Mutual Followers
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+        <ScrollViewer Grid.Row="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0"
+                            Orientation="Vertical"
+                            Margin="0,40,0,0">
+                    <StackPanel Orientation="Horizontal">
+
+                        <TextBlock Text="Bio: " />
+                        <TextBlock TextAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="5,0,0,0"
+                                   Visibility="{c:Binding IsOwnedProfile, UpdateSourceTrigger=PropertyChanged}">
+                                    <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+                                            Template="{StaticResource EditLinkButton}">                                        
+                                        <Button.CommandParameter>
+                                                <local:EditDialogView AcceptButtonCommand="{Binding UpdateBioCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                      MaxLine="500"
+                                                                      Hint="Bio" />
+                                        </Button.CommandParameter>
+                                    </Button>
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBlock Margin="0,10,0,0"
+                               HorizontalAlignment="Left"
+                               MaxWidth="380"
+                               TextWrapping="Wrap"
+                               Text="{Binding UserInfo.Bio}" />
+                </StackPanel>
+
+
+                <StackPanel Orientation="Vertical"
+                            Grid.Row="1"
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,10,0,0"
+                                Visibility="{c:Binding 'UserInfo.Instagram != null',UpdateSourceTrigger=PropertyChanged}">
+                        <materialDesign:PackIcon Kind="Instagram"
+                                                 MinWidth="20"
+                                                 MinHeight="20" />
+                        <TextBlock Margin="5,5,0,0">
+                            <Hyperlink Command="{Binding OpenExternalUrlCommand}"
+                                       Style="{StaticResource MaterialDesignCaptionHyperlink}"
+                                       CommandParameter="{Binding UserInfo.InstagramUrl,UpdateSourceTrigger=PropertyChanged}">
+                                <TextBlock Text="{Binding UserInfo.Instagram}"
+                                           VerticalAlignment="Center" />                                
+                            </Hyperlink>                                
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0,10,0,0"
+                                Visibility="{c:Binding 'UserInfo.Twitter != null',UpdateSourceTrigger=PropertyChanged}">
+                        <materialDesign:PackIcon Kind="Twitter"
+                                                 MinWidth="20"
+                                                 MinHeight="20" />
+                        <TextBlock Margin="5,5,0,0">
+                            <Hyperlink Command="{Binding OpenExternalUrlCommand}"
+                                       Style="{StaticResource MaterialDesignCaptionHyperlink}"
+                                       CommandParameter="{Binding UserInfo.TwitterUrl,UpdateSourceTrigger=PropertyChanged}">
+                                <TextBlock Text="{Binding UserInfo.Twitter}"
+                                           VerticalAlignment="Center" />
+                            </Hyperlink>                                
+                        </TextBlock>
+                        <TextBlock TextAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="5,0,0,0"
+                                   Visibility="{c:Binding IsOwnedProfile, UpdateSourceTrigger=PropertyChanged}">
+                                        <Hyperlink Style="{StaticResource MaterialDesignCaptionHyperlink}"
+                                                   Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                            <materialDesign:PackIcon Kind="Pencil" />
+                                            <Hyperlink.CommandParameter>
+                                                <local:EditDialogView AcceptButtonCommand="{Binding UpdateTwitterCommand, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                      Hint="Twitter Username" />
+                                            </Hyperlink.CommandParameter>
+                                        </Hyperlink>
+                        </TextBlock>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,20,0,0">
+                    <TextBlock Text="Member of" />
+                    <TextBlock Text="{Binding MemberofString,UpdateSourceTrigger=PropertyChanged}"
+                               Margin="0,10,0,0"
+                               TextWrapping="WrapWithOverflow"
+                               MaxWidth="300"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Left" />
+                </StackPanel>
+
+                <Button Grid.Row="3"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Margin="0,40,0,30"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch"
+                        MinHeight="60"
+                        Focusable="False"
+                        Command="{Binding ShowProfileCommand}"
+                        CommandParameter="{Binding UserInfo.Invited_by_user_profile.User_id}"
+                        Visibility="{c:Binding 'UserInfo.Invited_by_user_profile != null'}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                                Grid.Column="0"
+                                Grid.Row="0"
+                                Grid.RowSpan="2"
+                                HorizontalAlignment="Left"
+                                Width="50"
+                                Height="50">
+                            <Grid>
+                                <materialDesign:PackIcon Kind="AccountCircle"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center"
+                                                         Width="60"
+                                                         Height="60" />
+                                <Image  Stretch="UniformToFill"
+                                        CacheMode="BitmapCache"
+                                        Source="{Binding UserInfo.Invited_by_user_profile.Photo_url, UpdateSourceTrigger=PropertyChanged, IsAsync=True}" />
+                            </Grid>
+                        </Button>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Margin="10,0,0,0">
+                            <TextBlock Text="Nominated by " />
+                            <TextBlock Text="{Binding UserInfo.Invited_by_user_profile.Name, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
+                </Button>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
