@@ -11,7 +11,7 @@ You can download and install [lastest release](https://github.com/aliprogrammer6
 ## Build Source Code
 For building the code you need following requirments
 
-* .Net Code 5
+* .Net Core 5
 * Visual C++ Runtime 14
 * VSCode or Visual Studio
 
