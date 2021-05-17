@@ -1,21 +1,21 @@
 # Clubhouse Windows
 
-This is an **unofficial Clubhouse app** for Windows witch has been developed in C# and WPF. It is inspired by [this](https://github.com/stypr/clubhouse-py).
+This is an **unofficial Clubhouse app** for Windows which has been developed in C# and WPF. It is inspired by [this](https://github.com/stypr/clubhouse-py).
 
 # Getting Started
 You can download installer and install it or build source code.
 
 ## Installation
-You can download and install [lastest release](). It downloads requirments and install app in your PC.
+You can download and install [lastest release](https://github.com/aliprogrammer69/ClubHouse-Windows/releases). It downloads requirments and install app in your PC.
 
 ## Build Source Code
-For bulding the code you need following requirments
+For building the code you need following requirments
 
 * .Net Code 5
 * Visual C++ Runtime 14
 * VSCode or Visual Studio
 
-Then Build `ClubHouse.UI.DesktopApp` and run the program.
+Then build `ClubHouse.UI.DesktopApp` and run the program.
 
 # Screenshot
 
