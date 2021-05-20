@@ -80,7 +80,7 @@ Then build `ClubHouse.UI.DesktopApp` and run the program.
 | Get | ✅
 | GetFollowing | ✅
 | GetFollowers | ✅
-| GetMutualFollows | ⬜️
+| GetMutualFollows | ✅
 | Search | ✅
 ## ClubService
 | Service | Implemented |
