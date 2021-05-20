@@ -48,7 +48,8 @@ namespace ClubHouse.Business.Services {
         public Task<UserSearchResponse> GetFollowing(UserPagingRequest request) =>
             _httpClient.GetAsync<UserSearchResponse>($"{APIConsts.API_URL}/get_following?{request}");
 
-        public Task<object> GetMutualFollows(UserPagingRequest request) => throw new NotImplementedException();
+        public Task<UserSearchResponse> GetMutualFollows(UserPagingRequest request) =>
+            _httpClient.GetAsync<UserSearchResponse>($"{APIConsts.API_URL}/get_mutual_follows?{request}");
 
         public Task<object> IgnoreInSuggestion(long userId) => throw new NotImplementedException();
 

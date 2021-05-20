@@ -153,16 +153,16 @@ namespace ClubHouse.UI.DesktopApp.ViewModels {
         }
 
         private void GetMutaulFollowers(long userId, int pageIndex = 1, int pageSize = 50) {
-            //var response = Task.Run(async () => await _userService.GetMutualFollows(new UserPagingRequest() {
-            //    User_id = userId,
-            //    Page = pageIndex,
-            //    Page_size = pageSize
-            //})).Result;
-            //if (response?.Success != true) {
-            //    _messageService.Show($"Failed to get mutau follows. {response.Error_message}");
-            //    return;
-            //}
-            //AllItems.AddRange(response.Users);
+            var response = Task.Run(async () => await _userService.GetMutualFollows(new UserPagingRequest() {
+                User_id = userId,
+                Page = pageIndex,
+                Page_size = pageSize
+            })).Result;
+            if (response?.Success != true) {
+                _messageService.Show($"Failed to get mutau follows. {response.Error_message}");
+                return;
+            }
+            AllItems.AddRange(response.Users);
         }
         #endregion
     }

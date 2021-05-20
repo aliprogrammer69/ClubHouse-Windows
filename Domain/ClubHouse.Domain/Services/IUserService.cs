@@ -22,7 +22,7 @@ namespace ClubHouse.Domain.Services {
         Task<GetUserResponse> Get(long userId);
         Task<UserSearchResponse> GetFollowing(UserPagingRequest request);
         Task<UserSearchResponse> GetFollowers(UserPagingRequest request);
-        Task<object> GetMutualFollows(UserPagingRequest request);
+        Task<UserSearchResponse> GetMutualFollows(UserPagingRequest request);
 
         Task<UserSearchResponse> Search(UserSearchRequest request);
     }
