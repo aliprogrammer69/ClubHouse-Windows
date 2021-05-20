@@ -33,7 +33,7 @@ namespace ClubHouse.UI.DesktopApp.Handler {
         /// <param name="muted"></param>
         public override void OnUserMuteAudio(uint uid, bool muted) {
             //Debug.WriteLine($"User mute: {uid}, {muted}");
-            var userInfo = OnlineUsers.ToList().FirstOrDefault(u => u.User_id == uid);
+            var userInfo = OnlineUsers.Find(uid);
             if (userInfo != null) {
                 ThreadManagerUtil.RunInUI(() => {
                     userInfo.Is_muted = muted;
@@ -104,7 +104,7 @@ namespace ClubHouse.UI.DesktopApp.Handler {
 
         public override void OnRemoteAudioStats(RemoteAudioStats stats) {
             base.OnRemoteAudioStats(stats);
-            var userInfo = OnlineUsers.ToList().FirstOrDefault(u => u.User_id == stats.uid);
+            var userInfo = OnlineUsers.Find(stats.uid);
             if(userInfo!= null) {
                 ThreadManagerUtil.RunInUI(() => { userInfo.Is_speaking = (stats.receivedBitrate/stats.numChannels) > 10; });
             }
