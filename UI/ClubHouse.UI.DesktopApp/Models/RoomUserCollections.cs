@@ -40,6 +40,12 @@ namespace ClubHouse.UI.DesktopApp.Models {
         public bool Remove(BindableChannelUser item) => AllItems.Remove(item);
         public void RemoveAt(int index) => RemoveAt(index);
         public BindableChannelUser Find(long userId) {
+            //for(int i = 0; i < AllItems.Count; i++) {
+            //    var item = AllItems[i];
+            //    if (item?.User_id == userId)
+            //        return item;
+            //}
+            //return null;
             return AllItems?.ToList().FirstOrDefault(u => u.User_id == userId);
         }
 

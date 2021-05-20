@@ -641,12 +641,24 @@ namespace ClubHouse.UI.DesktopApp.Handler {
                     else {
                         _messageService.Show($"{data.From_name} moved you to audiance");
                         ThreadManagerUtil.RunInUI(() => {
-                            CurrentUserInfo.Is_speaker = false;
+                            if (CurrentUserInfo != null)
+                                CurrentUserInfo.Is_speaker = false;
                         });
                     }
                     break;
-                case "remove_from_channel":
+                case "mute_speaker":
+                    _messageService.Show($"{data.From_name} muted you");
+                    ThreadManagerUtil.RunInUI(() => {
+                        if (!this.MicrophoneMuted)
+                            ChangeMicrophoneMute();
+                    });
+                    break;
                 case "end_channel":
+                    ThreadManagerUtil.RunInUI(async () => {
+                        await LeaveRoom();
+                    });
+                    break;
+                case "remove_from_channel":
                 default:
                     Debug.WriteLine(message);
                     break;
