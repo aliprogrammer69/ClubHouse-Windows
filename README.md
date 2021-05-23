@@ -156,7 +156,7 @@ Then build `ClubHouse.UI.DesktopApp` and run the program.
 | UserLog | ⬜️
 | ReportIncident | ⬜️
 
-# Conterbuters
+# Contributors
 This program has been writen by [Ali Jalali](https://github.com/aliprogrammer69) and [Amin Mirzaee](https://github.com/hifeamin). 
 
 If you need features that is not implemented - feel free to implement and create PRs!
